@@ -10,7 +10,7 @@ CREATE TABLE users(
   view_adverts INT 
 );
 
-# 1 Напишите запрос SQL, выводящий одним числом количество уникальных пользователей в этой таблице в период с 2023-11-07 по 2023-11-15.
+-- # 1 Напишите запрос SQL, выводящий одним числом количество уникальных пользователей в этой таблице в период с 2023-11-07 по 2023-11-15.
 SELECT 
  COUNT(DISTINCT user_id) as count
 FROM
@@ -18,7 +18,7 @@ FROM
 WHERE
  date BETWEEN '2023-11-07' AND '2023-11-15';
  
- # 2 Определите пользователя, который за весь период посмотрел наибольшее количество объявлений. 
+-- # 2 Определите пользователя, который за весь период посмотрел наибольшее количество объявлений. 
 SELECT
  user_id
   ,SUM(view_adverts) as view_count
@@ -30,7 +30,7 @@ ORDER BY
  view_count DESC
 LIMIT 1;
 
--- 
+-- # 3 ---
 SELECT
  user_id
 FROM
@@ -38,7 +38,7 @@ FROM
 WHERE
  view_adverts IN (SELECT MAX(view_adverts) FROM users);
 
-# 3
+--# 3 USING CTE FOR SOLVING PROBLEM
 WITH pre_res AS (
 	 SELECT
 	 date
@@ -59,7 +59,7 @@ ORDER BY
  avg_view_adverts DESC
  LIMIT 1;
  
-# 4 
+---# 4 USING GREGATIONAL FUNCTION TO SOVLE PROBLEM
 SELECT 
     user_id, CEILING(AVG(view_adverts)) AS count
 FROM
@@ -67,7 +67,7 @@ FROM
 GROUP BY user_id
 ORDER BY count DESC;
  
- # 5 
+-- # 5 using  HAVING to solve problem
 SELECT 
     user_id,
     AVG(view_adverts) AS avg_count,
@@ -121,13 +121,13 @@ INSERT INTO T_TAB2 (ID, NAME, SALARY, AGE) VALUES
 (4, 'JOE', 70000, 24),
 (5, 'RITA', 120000, 29);
 
-# 1
+-- 1
 SELECT
  DISTINCT GOODS_TYPE
 FROM
  T_TAB1;
  
-# 2 
+--# 2 
 SELECT
  COUNT(QUANTITY) as count
  ,SUM(AMOUNT * QUANTITY) as total_revenue
@@ -138,7 +138,7 @@ WHERE
 GROUP BY
  GOODS_TYPE;
  
- # 3
+ --# 3
 SELECT
   *
 FROM
@@ -146,7 +146,7 @@ FROM
 WHERE
  salary > 100000;
  
- # 4
+-- # 4 using UNION:)  to solve problem
 	SELECT 
 	 'MIN_AGE' as metric
 	  ,MIN(AGE) as value
@@ -171,7 +171,7 @@ UNION ALL
     FROM
      T_TAB2;
 
-# 5
+--# 5
 	SELECT
 	 'Среднее продажа клавиатур' as product
 	  , AVG(QUANTITY) as avg_keybord
@@ -188,7 +188,7 @@ UNION ALL
 	WHERE
 	 GOODS_TYPE = 'PRINTER';
 
-# 6 
+--# 6 
 SELECT
  NAME
 , SUM(AMOUNT * QUANTITY) as total_revenue
@@ -199,7 +199,7 @@ RIGHT JOIN
 GROUP BY
  t2.name;
  
- # 7 
+--- # 7 
 SELECT
  t2.NAME
  ,t1.GOODS_TYPE
@@ -213,7 +213,7 @@ LEFT JOIN
  T_TAB1 as t1 ON t1.SELLER_NAME = t2.NAME;
   
   
-# 8 Напишите запрос, который вернёт имя и возраст сотрудника, который ничего не продал. Сколько таких сотрудников?
+--# 8 Напишите запрос, который вернёт имя и возраст сотрудника, который ничего не продал. Сколько таких сотрудников?
 WITH pre_res AS (
 	SELECT
 	 t2.NAME
@@ -233,7 +233,7 @@ FROM
 WHERE
  total_revenue IS NULL OR total_revenue = 0;
  
- # 9 Напишите запрос, который вернёт имя сотрудника и его заработную плату с возрастом меньше 26 лет? Какое количество строк вернул запрос?
+-- # 9 Напишите запрос, который вернёт имя сотрудника и его заработную плату с возрастом меньше 26 лет? Какое количество строк вернул запрос?
 SELECT
  NAME
  ,SALARY
@@ -242,7 +242,7 @@ FROM
 WHERE
  AGE < 26;
  
- # 10 Сколько строк вернёт следующий запрос:
+-- # 10 Сколько строк вернёт следующий запрос:
 SELECT COUNT(*) FROM T_TAB1 t
 JOIN T_TAB2 t2 ON t2.name = t.seller_name
 WHERE t2.name = 'RITA'
