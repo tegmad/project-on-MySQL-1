@@ -9,10 +9,11 @@ LEFT JOIN
 LEFT JOIN
  category on film_category.category_id = category.category_id 
 WHERE 
-(film.release_year BETWEEN 2017 AND 2019 ) AND film.rental_rate > 1
+(film.release_year BETWEEN 2017 AND 2019 ) AND (film.rental_rate > 1) AND (category."name" ='Animation')
 ORDER BY 
   film.title ;
  
+
   -- TASK 2.The revenue earned by each rental store after March 2017 (columns: address and address2 – as one column, revenue) 
 SELECT 
     CONCAT(address.address, ' ', COALESCE(address.address2, '')) AS full_address,
